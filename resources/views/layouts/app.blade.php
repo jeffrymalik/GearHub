@@ -18,18 +18,20 @@
 <body class="bg-white text-slate-800 font-sans antialiased selection:bg-blue-600 selection:text-white flex flex-col min-h-screen">
 
     <!-- Header / Navbar -->
-    @include('partials.navbar')
+    @if(!request()->is('admin*') && !request()->is('operator*'))
+        @include('partials.navbar')
+    @endif
 
     <!-- Main Content Area -->
     <main id="main-content" class="flex-grow">
         @yield('content')
     </main>
 
-    <!-- Footer -->
-    @include('partials.footer')
-
-    <!-- Quick Search Modal -->
-    @include('partials.modal-search')
+    <!-- Footer & Search Modal -->
+    @if(!request()->is('admin*') && !request()->is('operator*'))
+        @include('partials.footer')
+        @include('partials.modal-search')
+    @endif
 
     <!-- Scripts -->
     @stack('scripts')
